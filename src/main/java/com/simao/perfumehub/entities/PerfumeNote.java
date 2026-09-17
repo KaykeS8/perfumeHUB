@@ -13,7 +13,7 @@ import java.io.Serializable;
 @Entity
 @Table(
     name = "tb_perfume_notes",
-    uniqueConstraints = @UniqueConstraint(columnNames = {"perfume_id", "node_id","type"})
+    uniqueConstraints = @UniqueConstraint(columnNames = {"perfume_id", "note_id","type"})
 )
 @AllArgsConstructor
 @NoArgsConstructor

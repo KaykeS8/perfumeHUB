@@ -1,10 +1,7 @@
 package com.simao.perfumehub.exceptions;
 
-import org.springframework.http.HttpStatus;
-
-public class ResourceNotFoundException extends RuntimeException {
-
-    public ResourceNotFoundException(String message, HttpStatus status) {
+public class ResourceConflictException extends RuntimeException {
+    public ResourceConflictException(String message) {
         super(message);
     }
 }

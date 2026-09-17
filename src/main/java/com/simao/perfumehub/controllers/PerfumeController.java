@@ -1,4 +1,4 @@
-package com.simao.perfumehub.controlers;
+package com.simao.perfumehub.controllers;
 
 import com.simao.perfumehub.entities.Perfume;
 import com.simao.perfumehub.services.PerfumeService;

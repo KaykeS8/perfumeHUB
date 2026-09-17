@@ -1,4 +1,9 @@
 package com.simao.perfumehub.repositories;
 
-public interface PerfumeRepository {
+import com.simao.perfumehub.entities.Perfume;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface PerfumeRepository extends JpaRepository<Perfume, Long> {
 }

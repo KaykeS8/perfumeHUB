@@ -1,4 +1,11 @@
 package com.simao.perfumehub.exceptions;
 
-public record ExceptionResponse() {
+import java.time.LocalDateTime;
+
+public record ExceptionResponse(
+        LocalDateTime timestamp,
+        Object message,
+        String details,
+        int status
+) {
 }

@@ -1,4 +1,7 @@
-package com.simao.perfumehub.dtos;
+package com.simao.perfumehub.dtos.brand;
 
-public record BrandResponseDto() {
+public record BrandResponseDto(
+        Long id,
+        String name
+) {
 }

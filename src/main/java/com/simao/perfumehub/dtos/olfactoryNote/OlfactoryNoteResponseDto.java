@@ -1,4 +1,4 @@
 package com.simao.perfumehub.dtos.olfactoryNote;
 
-public record OlfactoryNoteResponseDto() {
+public record OlfactoryNoteResponseDto(Long id, String name) {
 }

@@ -1,4 +1,6 @@
 package com.simao.perfumehub.dtos.olfactoryNote;
 
-public class OlfactoryNoteRequestDto {
+import jakarta.validation.constraints.NotBlank;
+
+public record OlfactoryNoteRequestDto(@NotBlank String name) {
 }

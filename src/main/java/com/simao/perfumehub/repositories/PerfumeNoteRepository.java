@@ -11,4 +11,5 @@ import java.util.List;
 public interface PerfumeNoteRepository extends JpaRepository<PerfumeNote, Long> {
     boolean existsByPerfumeIdAndNoteIdAndType(Long perfumeId, Long noteId, NoteType type);
     List<PerfumeNote> findAllByPerfumeId(Long id);
+    boolean existsByIdAndPerfumeId(Long id, Long perfumeId);
 }

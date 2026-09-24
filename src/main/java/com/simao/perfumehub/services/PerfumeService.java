@@ -61,6 +61,7 @@ public class PerfumeService {
             BigDecimal minPrice,
             BigDecimal maxPrice,
             String name,
+            String note,
             Pageable pageable
     ) {
         log.info("Get all perfumes...");
@@ -69,7 +70,8 @@ public class PerfumeService {
                 .and(PerfumeSpecifications.hasGenre(genre))
                 .and(PerfumeSpecifications.hasConcentration(concentration))
                 .and(PerfumeSpecifications.priceBetween(minPrice, maxPrice))
-                .and(PerfumeSpecifications.nameContains(name));
+                .and(PerfumeSpecifications.nameContains(name))
+                .and(PerfumeSpecifications.hasNote(note));
 
         Page<PerfumeResponseDto> page = perfumeRepository.findAll(spec, pageable).map(mapper::toDto);
         return PaginationMapper.buildPaginationDto(page);

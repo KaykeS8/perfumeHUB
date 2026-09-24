@@ -25,7 +25,7 @@ public class PerfumeSpecifications {
                 concentration == null ? null : cb.equal(root.get("concentration"), Genre.valueOf(concentration.toUpperCase()));
     }
 
-    public static Specification<Perfume> priceBetween(BigDecimal priceMin, BigDecimal priceMax) {
+    public static Specification<Perfume> priceBetaween(BigDecimal priceMin, BigDecimal priceMax) {
         return (root, query, cb) -> {
             if (priceMin == null && priceMax == null) return null;
             if (priceMin == null) return cb.lessThanOrEqualTo(root.get("price"), priceMax);

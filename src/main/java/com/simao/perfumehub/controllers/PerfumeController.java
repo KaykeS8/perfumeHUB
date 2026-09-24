@@ -3,12 +3,16 @@ package com.simao.perfumehub.controllers;
 import com.simao.perfumehub.dtos.brand.PaginationDto;
 import com.simao.perfumehub.dtos.perfume.PerfumeRequestDto;
 import com.simao.perfumehub.dtos.perfume.PerfumeResponseDto;
+import com.simao.perfumehub.entities.enums.Concentration;
+import com.simao.perfumehub.entities.enums.Genre;
 import com.simao.perfumehub.services.PerfumeService;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.math.BigDecimal;
 
 @RestController
 @RequestMapping("/api/perfumes")
@@ -26,8 +30,16 @@ public class PerfumeController {
     }
 
     @GetMapping
-    public ResponseEntity<PaginationDto<PerfumeResponseDto>> getAll(Pageable pageable) {
-        return ResponseEntity.status(HttpStatus.OK).body(perfumeService.getAll(pageable));
+    public ResponseEntity<PaginationDto<PerfumeResponseDto>> getAll(
+            @RequestParam(required = false) String brand,
+            @RequestParam(required = false) String genre,
+            @RequestParam(required = false) String concentration,
+            @RequestParam(required = false) BigDecimal minPrice,
+            @RequestParam(required = false) BigDecimal maxPrice,
+            @RequestParam(required = false) String name,
+            Pageable pageable
+    ) {
+        return ResponseEntity.status(HttpStatus.OK).body(perfumeService.getAll(brand, genre, concentration, minPrice, maxPrice, name, pageable));
     }
 
     @GetMapping("/{id}")

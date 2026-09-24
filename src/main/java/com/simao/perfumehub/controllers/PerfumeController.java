@@ -10,6 +10,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
+
 @RestController
 @RequestMapping("/api/perfumes")
 public class PerfumeController {
@@ -26,8 +28,17 @@ public class PerfumeController {
     }
 
     @GetMapping
-    public ResponseEntity<PaginationDto<PerfumeResponseDto>> getAll(Pageable pageable) {
-        return ResponseEntity.status(HttpStatus.OK).body(perfumeService.getAll(pageable));
+    public ResponseEntity<PaginationDto<PerfumeResponseDto>> getAll(
+            @RequestParam(required = false) String brand,
+            @RequestParam(required = false) String genre,
+            @RequestParam(required = false) String concentration,
+            @RequestParam(required = false) BigDecimal minPrice,
+            @RequestParam(required = false) BigDecimal maxPrice,
+            @RequestParam(required = false) String name,
+            @RequestParam(required = false) String note,
+            Pageable pageable
+    ) {
+        return ResponseEntity.status(HttpStatus.OK).body(perfumeService.getAll(brand, genre, concentration, minPrice, maxPrice, name, note, pageable));
     }
 
     @GetMapping("/{id}")

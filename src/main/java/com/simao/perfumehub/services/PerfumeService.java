@@ -13,12 +13,16 @@ import com.simao.perfumehub.mapper.PaginationMapper;
 import com.simao.perfumehub.mapper.PerfumeMapper;
 import com.simao.perfumehub.repositories.BrandRepository;
 import com.simao.perfumehub.repositories.PerfumeRepository;
+import com.simao.perfumehub.specifications.PerfumeSpecifications;
 import jakarta.transaction.Transactional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+
+import java.math.BigDecimal;
 
 @Service
 public class PerfumeService {
@@ -50,9 +54,26 @@ public class PerfumeService {
         return mapper.toDto(perfumeRepository.save(perfume));
     }
 
-    public PaginationDto<PerfumeResponseDto> getAll(Pageable pageable) {
+    public PaginationDto<PerfumeResponseDto> getAll(
+            String brand,
+            String genre,
+            String concentration,
+            BigDecimal minPrice,
+            BigDecimal maxPrice,
+            String name,
+            String note,
+            Pageable pageable
+    ) {
         log.info("Get all perfumes...");
-        Page<PerfumeResponseDto> page = perfumeRepository.findAll(pageable).map(mapper::toDto);
+        Specification<Perfume> spec = Specification
+                .where(PerfumeSpecifications.hasBrand(brand))
+                .and(PerfumeSpecifications.hasGenre(genre))
+                .and(PerfumeSpecifications.hasConcentration(concentration))
+                .and(PerfumeSpecifications.priceBetween(minPrice, maxPrice))
+                .and(PerfumeSpecifications.nameContains(name))
+                .and(PerfumeSpecifications.hasNote(note));
+
+        Page<PerfumeResponseDto> page = perfumeRepository.findAll(spec, pageable).map(mapper::toDto);
         return PaginationMapper.buildPaginationDto(page);
     }
 

@@ -3,6 +3,7 @@ package com.simao.perfumehub.specifications;
 import com.simao.perfumehub.entities.OlfactoryNote;
 import com.simao.perfumehub.entities.Perfume;
 import com.simao.perfumehub.entities.PerfumeNote;
+import com.simao.perfumehub.entities.enums.Concentration;
 import com.simao.perfumehub.entities.enums.Genre;
 import jakarta.persistence.criteria.JoinType;
 import org.springframework.data.jpa.domain.Specification;
@@ -27,7 +28,7 @@ public class PerfumeSpecifications {
 
     public static Specification<Perfume> hasConcentration(String concentration) {
         return (root, query, cb) ->
-                concentration == null ? null : cb.equal(root.get("concentration"), Genre.valueOf(concentration.toUpperCase()));
+                concentration == null ? null : cb.equal(root.get("concentration"), Concentration.valueOf(concentration.toUpperCase()));
     }
 
     public static Specification<Perfume> priceBetween(BigDecimal priceMin, BigDecimal priceMax) {

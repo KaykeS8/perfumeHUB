@@ -6,9 +6,11 @@ import com.simao.perfumehub.entities.Perfume;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", uses = {PerfumeNoteMapper.class})
 public interface PerfumeMapper {
     @Mapping(target = "id", ignore = true)
     Perfume toEntity(PerfumeRequestDto dto);
+
+    @Mapping(target = "notes", source = "perfumeNotes")
     PerfumeResponseDto toDto(Perfume perfume);
 }

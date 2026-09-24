@@ -1,4 +1,11 @@
 package com.simao.perfumehub.dtos.perfumeNote;
 
-public record PerfumeNoteResponseDto() {
+import com.simao.perfumehub.entities.enums.NoteType;
+
+public record PerfumeNoteResponseDto(
+        Long id,
+        Long noteId,
+        String noteName,
+        NoteType type
+) {
 }

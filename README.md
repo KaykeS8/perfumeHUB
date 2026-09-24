@@ -1,4 +1,4 @@
-# 🌸 PerfumeHub
+# PerfumeHub
 
 Sistema de gerenciamento de perfumes desenvolvido como projeto de portfólio backend, com foco em boas práticas de arquitetura, modelagem de domínio realista e evolução incremental por blocos de funcionalidade.
 

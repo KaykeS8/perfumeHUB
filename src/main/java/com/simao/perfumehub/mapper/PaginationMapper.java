@@ -1,6 +1,6 @@
 package com.simao.perfumehub.mapper;
 
-import com.simao.perfumehub.dtos.brand.PaginationDto;
+import com.simao.perfumehub.dtos.PaginationDto;
 import org.springframework.data.domain.Page;
 
 public class PaginationMapper {

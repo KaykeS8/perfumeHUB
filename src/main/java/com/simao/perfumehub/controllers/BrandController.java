@@ -2,7 +2,7 @@ package com.simao.perfumehub.controllers;
 
 import com.simao.perfumehub.dtos.brand.BrandRequestDto;
 import com.simao.perfumehub.dtos.brand.BrandResponseDto;
-import com.simao.perfumehub.dtos.brand.PaginationDto;
+import com.simao.perfumehub.dtos.PaginationDto;
 import com.simao.perfumehub.services.BrandService;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Pageable;

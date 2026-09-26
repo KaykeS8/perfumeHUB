@@ -2,7 +2,7 @@ package com.simao.perfumehub.services;
 
 import com.simao.perfumehub.dtos.brand.BrandRequestDto;
 import com.simao.perfumehub.dtos.brand.BrandResponseDto;
-import com.simao.perfumehub.dtos.brand.PaginationDto;
+import com.simao.perfumehub.dtos.PaginationDto;
 import com.simao.perfumehub.entities.Brand;
 import com.simao.perfumehub.exceptions.ResourceConflictException;
 import com.simao.perfumehub.exceptions.ResourceNotFoundException;

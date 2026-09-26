@@ -1,4 +1,4 @@
-package com.simao.perfumehub.dtos.brand;
+package com.simao.perfumehub.dtos;
 
 import java.util.List;
 

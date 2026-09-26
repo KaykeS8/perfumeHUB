@@ -1,6 +1,6 @@
 package com.simao.perfumehub.services;
 
-import com.simao.perfumehub.dtos.brand.PaginationDto;
+import com.simao.perfumehub.dtos.PaginationDto;
 import com.simao.perfumehub.dtos.olfactoryNote.OlfactoryNoteRequestDto;
 import com.simao.perfumehub.dtos.olfactoryNote.OlfactoryNoteResponseDto;
 import com.simao.perfumehub.entities.OlfactoryNote;

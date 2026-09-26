@@ -1,6 +1,6 @@
 package com.simao.perfumehub.services;
 
-import com.simao.perfumehub.dtos.brand.PaginationDto;
+import com.simao.perfumehub.dtos.PaginationDto;
 import com.simao.perfumehub.dtos.perfume.PerfumeRequestDto;
 import com.simao.perfumehub.dtos.perfume.PerfumeResponseDto;
 import com.simao.perfumehub.entities.Brand;
@@ -98,7 +98,6 @@ public class PerfumeService {
                     perfume.setName(dto.name());
                     perfume.setDescription(dto.description());
                     perfume.setPrice(dto.price());
-                    perfume.setQuantityOfStock(dto.quantityOfStock());
                     perfume.setGenre(Genre.valueOf(dto.genre()));
                     perfume.setConcentration(Concentration.valueOf(dto.concentration()));
                     perfume.setBrand(brand);

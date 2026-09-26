@@ -1,6 +1,6 @@
 package com.simao.perfumehub.controllers;
 
-import com.simao.perfumehub.dtos.brand.PaginationDto;
+import com.simao.perfumehub.dtos.PaginationDto;
 import com.simao.perfumehub.dtos.perfume.PerfumeRequestDto;
 import com.simao.perfumehub.dtos.perfume.PerfumeResponseDto;
 import com.simao.perfumehub.services.PerfumeService;

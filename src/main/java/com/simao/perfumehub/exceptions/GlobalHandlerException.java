@@ -1,14 +1,17 @@
 package com.simao.perfumehub.exceptions;
 
+import org.apache.coyote.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 
+import java.nio.file.AccessDeniedException;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
@@ -51,9 +54,10 @@ public class GlobalHandlerException {
 
     @ExceptionHandler(IllegalArgumentException.class)
     public ResponseEntity<ExceptionResponse> handlerIllegalArgumentException(IllegalArgumentException ex, WebRequest request) {
+        String message = ex.getMessage() != null ? ex.getMessage() : "Os dados informados são inválidos para a operação solicitada.";
         ExceptionResponse response = new ExceptionResponse(
                 LocalDateTime.now(),
-        "Os dados informados são inválidos para a operação solicitada.",
+                message,
                 request.getDescription(false),
                 HttpStatus.BAD_REQUEST.value()
         );
@@ -74,5 +78,17 @@ public class GlobalHandlerException {
                 HttpStatus.BAD_REQUEST.value()
         );
         return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(BadCredentialsException.class)
+    public ResponseEntity<ExceptionResponse> handleBadCredentialException(BadCredentialsException ex, WebRequest request) {
+        ExceptionResponse response = new ExceptionResponse(
+          LocalDateTime.now(),
+          "Invalid email or password",
+          request.getDescription(false),
+          HttpStatus.UNAUTHORIZED.value()
+        );
+
+        return new ResponseEntity<>(response, HttpStatus.UNAUTHORIZED);
     }
 }

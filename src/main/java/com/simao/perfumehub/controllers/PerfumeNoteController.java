@@ -6,6 +6,7 @@ import com.simao.perfumehub.services.PerfumeNoteService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,6 +22,7 @@ public class PerfumeNoteController {
     }
 
     @PostMapping
+    @PreAuthorize("hasAnyRole('ADMIN', 'EMPLOYEE')")
     public ResponseEntity<PerfumeNoteResponseDto> createPerfumeNote(@PathVariable Long perfumeId, @RequestBody @Valid PerfumeNoteRequestDto dto) {
         return ResponseEntity.status(HttpStatus.CREATED).body(perfumeNoteService.createPerfumeNote(perfumeId, dto));
     }
@@ -31,6 +33,7 @@ public class PerfumeNoteController {
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Void> deletePerfumeNote(@PathVariable Long perfumeId, @PathVariable Long id) {
         perfumeNoteService.deletePerfumeNote(perfumeId, id);
         return ResponseEntity.noContent().build();

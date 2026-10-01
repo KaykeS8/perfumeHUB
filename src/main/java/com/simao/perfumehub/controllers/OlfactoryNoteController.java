@@ -9,6 +9,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -22,6 +23,7 @@ public class OlfactoryNoteController {
     }
 
     @PostMapping
+    @PreAuthorize("hasAnyRole('ADMIN', 'EMPLOYEE')")
     public ResponseEntity<OlfactoryNoteResponseDto> createOlfactoryNote(@RequestBody @Valid OlfactoryNoteRequestDto dto) {
         return ResponseEntity.status(HttpStatus.CREATED).body(olfactoryNoteService.createOlfactoryNote(dto));
     }
@@ -37,11 +39,13 @@ public class OlfactoryNoteController {
     }
 
     @PutMapping("/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'EMPLOYEE')")
     public ResponseEntity<OlfactoryNoteResponseDto> updateOlfactoryNote(@PathVariable Long id, @RequestBody @Valid OlfactoryNoteRequestDto dto) {
         return ResponseEntity.status(HttpStatus.OK).body(olfactoryNoteService.updateOlfactoryNote(id, dto));
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Void> deleteOlfactoryNote(@PathVariable Long id) {
         olfactoryNoteService.deleteOlfactoryNote(id);
         return ResponseEntity.noContent().build();

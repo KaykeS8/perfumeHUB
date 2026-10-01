@@ -10,6 +10,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -23,11 +24,13 @@ public class StockMovementController {
     }
 
     @PostMapping
+    @PreAuthorize("hasAnyRole('ADMIN', 'EMPLOYEE')")
     public ResponseEntity<StockMovementResponseDto> registerMovement(@RequestBody @Valid StockMovementRequestDto dto) {
         return ResponseEntity.status(HttpStatus.OK).body(stockMovementService.registerMovement(dto));
     }
 
     @GetMapping
+    @PreAuthorize("hasAnyRole('ADMIN', 'EMPLOYEE')")
     public ResponseEntity<PaginationDto<StockMovementResponseDto>> getAllMovements(
             @RequestParam(required = false) Long perfumeId,
             @RequestParam(required = false) String type,

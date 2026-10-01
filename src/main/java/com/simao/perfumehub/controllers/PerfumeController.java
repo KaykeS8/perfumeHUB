@@ -8,6 +8,7 @@ import jakarta.validation.Valid;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
@@ -23,6 +24,7 @@ public class PerfumeController {
     }
 
     @PostMapping
+    @PreAuthorize("hasAnyRole('ADMIN', 'EMPLOYEE')")
     public ResponseEntity<PerfumeResponseDto> createPerfume(@RequestBody @Valid PerfumeRequestDto dto) {
         return ResponseEntity.status(HttpStatus.CREATED).body(perfumeService.createPerfume(dto));
     }
@@ -47,11 +49,13 @@ public class PerfumeController {
     }
 
     @PutMapping("/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'EMPLOYEE')")
     public ResponseEntity<PerfumeResponseDto> updatePerfume(@PathVariable Long id, @RequestBody @Valid PerfumeRequestDto dto) {
         return ResponseEntity.status(HttpStatus.OK).body(perfumeService.updatePerfume(id, dto));
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Void> deletePerfume(@PathVariable Long id) {
         perfumeService.deletePerfume(id);
         return ResponseEntity.noContent().build();

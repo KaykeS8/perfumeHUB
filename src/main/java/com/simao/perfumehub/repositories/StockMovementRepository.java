@@ -10,4 +10,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface StockMovementRepository extends JpaRepository<StockMovement, Long>, JpaSpecificationExecutor<StockMovement> {
     Page<StockMovement> findAllByPerfumeId(Long perfumeId, Pageable pageable);
+    boolean existsByPerfumeId(Long id);
 }

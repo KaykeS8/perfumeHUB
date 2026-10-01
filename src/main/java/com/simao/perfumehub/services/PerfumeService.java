@@ -13,6 +13,7 @@ import com.simao.perfumehub.mapper.PaginationMapper;
 import com.simao.perfumehub.mapper.PerfumeMapper;
 import com.simao.perfumehub.repositories.BrandRepository;
 import com.simao.perfumehub.repositories.PerfumeRepository;
+import com.simao.perfumehub.repositories.StockMovementRepository;
 import com.simao.perfumehub.specifications.PerfumeSpecifications;
 import jakarta.transaction.Transactional;
 import org.slf4j.Logger;
@@ -29,13 +30,15 @@ public class PerfumeService {
 
     private final PerfumeRepository perfumeRepository;
     private final BrandRepository brandRepository;
+    private final StockMovementRepository stockMovementRepository;
     private final Logger log = LoggerFactory.getLogger(PerfumeService.class);
     private final PerfumeMapper mapper;
 
 
-    public PerfumeService(PerfumeRepository perfumeRepository, PerfumeMapper mapper, BrandRepository brandRepository) {
+    public PerfumeService(PerfumeRepository perfumeRepository, PerfumeMapper mapper, BrandRepository brandRepository, StockMovementRepository stockMovementRepository) {
         this.perfumeRepository = perfumeRepository;
         this.brandRepository = brandRepository;
+        this.stockMovementRepository = stockMovementRepository;
         this.mapper = mapper;
     }
 
@@ -106,8 +109,13 @@ public class PerfumeService {
     }
 
     public void deletePerfume(Long id) {
-        log.info("Deleting perfume with ID: {}",id);
-        if (!perfumeRepository.existsById(id)) throw new ResourceNotFoundException("Perfume not found with ID: " + id);
+        Perfume perfume = perfumeRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Perfume not found with ID: " + id));
+
+        if (stockMovementRepository.existsByPerfumeId(perfume.getId())) {
+            throw new ResourceConflictException("Cannot delete perfume because it has stock movements");
+        }
+        log.info("Deleting perfume with ID: {}", id);
         perfumeRepository.deleteById(id);
     }
 }

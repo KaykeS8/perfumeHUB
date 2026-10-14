@@ -1,6 +1,7 @@
 package com.simao.perfumehub.exceptions;
 
-import org.apache.coyote.Response;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -11,7 +12,6 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 
-import java.nio.file.AccessDeniedException;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
@@ -19,8 +19,11 @@ import java.util.Map;
 @RestControllerAdvice
 public class GlobalHandlerException {
 
+    private final Logger log = LoggerFactory.getLogger(GlobalHandlerException.class);
+
     @ExceptionHandler(ResourceNotFoundException.class)
     public ResponseEntity<ExceptionResponse> handlerResourceNotFoundException(ResourceNotFoundException ex, WebRequest request) {
+        log.warn("Resource not found: {}", ex.getMessage());
         ExceptionResponse response = new ExceptionResponse(
                 LocalDateTime.now(),
                 ex.getMessage(),

@@ -20,4 +20,4 @@ spring:
 
   jwt:
     secret: ${JWT_SECRET}
-    expiration-minutes: 5
+    expiration-minutes: 10

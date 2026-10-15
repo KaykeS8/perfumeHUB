@@ -99,19 +99,15 @@ Marca (Brand)
 ### Pré-requisitos
 - Java 21+
 - Maven
-- PostgreSQL rodando localmente (ou via Docker, quando o Bloco 8 for implementado)
+- PostgreSQL
 
 ### Passos
 
 ```bash
 git clone https://github.com/KaykeS8/perfumeHUB.git
 cd perfumeHUB
-
-cp .env.example .env
-# preencha .env com suas credenciais de banco
-
-mvn clean install
-mvn spring-boot:run
+cp .env.example .env      # preencha os valores
+docker compose up --build
 ```
 
 A aplicação sobe em `http://localhost:8080`. O schema do banco é gerado/atualizado automaticamente pelo Hibernate na inicialização, conforme a propriedade `spring.jpa.hibernate.ddl-auto` configurada.

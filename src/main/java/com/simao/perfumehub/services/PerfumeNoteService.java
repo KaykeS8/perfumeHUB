@@ -69,7 +69,7 @@ public class PerfumeNoteService {
         if (!perfumeRepository.existsById(perfumeId)) {
             throw new ResourceNotFoundException("Perfume not found with ID: " + perfumeId);
         }
-        if (!perfumeNoteRepository.existsByIdAndPerfumeId(perfumeId, id))  {
+        if (!perfumeNoteRepository.existsByIdAndPerfumeId(id, perfumeId))  {
             throw new ResourceNotFoundException("Perfume note not found with ID: " + id + " for perfume: " + perfumeId);
         }
         perfumeNoteRepository.deleteById(id);

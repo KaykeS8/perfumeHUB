@@ -21,3 +21,10 @@ spring:
   jwt:
     secret: ${JWT_SECRET}
     expiration-minutes: 10
+
+  app:
+    bootstrap-admin:
+      enabled: ${BOOTSTRAP_ADMIN_ENABLED}
+      name: ${BOOTSTRAP_ADMIN_NAME}
+      email: ${BOOTSTRAP_ADMIN_EMAIL}
+      password: ${BOOTSTRAP_ADMIN_PASSWORD}

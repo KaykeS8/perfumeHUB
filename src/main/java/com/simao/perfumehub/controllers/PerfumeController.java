@@ -1,5 +1,6 @@
 package com.simao.perfumehub.controllers;
 
+import com.simao.perfumehub.docs.PerfumeControllerDocs;
 import com.simao.perfumehub.dtos.PaginationDto;
 import com.simao.perfumehub.dtos.perfume.PerfumeRequestDto;
 import com.simao.perfumehub.dtos.perfume.PerfumeResponseDto;
@@ -15,7 +16,7 @@ import java.math.BigDecimal;
 
 @RestController
 @RequestMapping("/api/perfumes")
-public class PerfumeController {
+public class PerfumeController implements PerfumeControllerDocs {
 
     private final PerfumeService perfumeService;
 
@@ -23,12 +24,14 @@ public class PerfumeController {
         this.perfumeService = perfumeService;
     }
 
+    @Override
     @PostMapping
     @PreAuthorize("hasAnyRole('ADMIN', 'EMPLOYEE')")
     public ResponseEntity<PerfumeResponseDto> createPerfume(@RequestBody @Valid PerfumeRequestDto dto) {
         return ResponseEntity.status(HttpStatus.CREATED).body(perfumeService.createPerfume(dto));
     }
 
+    @Override
     @GetMapping
     public ResponseEntity<PaginationDto<PerfumeResponseDto>> getAll(
             @RequestParam(required = false) String brand,
@@ -43,17 +46,20 @@ public class PerfumeController {
         return ResponseEntity.status(HttpStatus.OK).body(perfumeService.getAll(brand, genre, concentration, minPrice, maxPrice, name, note, pageable));
     }
 
+    @Override
     @GetMapping("/{id}")
     public ResponseEntity<PerfumeResponseDto> findPerfumeById(@PathVariable Long id) {
         return ResponseEntity.status(HttpStatus.OK).body(perfumeService.findPerfumeById(id));
     }
 
+    @Override
     @PutMapping("/{id}")
     @PreAuthorize("hasAnyRole('ADMIN', 'EMPLOYEE')")
     public ResponseEntity<PerfumeResponseDto> updatePerfume(@PathVariable Long id, @RequestBody @Valid PerfumeRequestDto dto) {
         return ResponseEntity.status(HttpStatus.OK).body(perfumeService.updatePerfume(id, dto));
     }
 
+    @Override
     @DeleteMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Void> deletePerfume(@PathVariable Long id) {

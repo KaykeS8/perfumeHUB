@@ -1,10 +1,12 @@
 package com.simao.perfumehub.controllers;
 
+import com.simao.perfumehub.docs.BrandControllerDocs;
 import com.simao.perfumehub.dtos.brand.BrandRequestDto;
 import com.simao.perfumehub.dtos.brand.BrandResponseDto;
 import com.simao.perfumehub.dtos.PaginationDto;
 import com.simao.perfumehub.services.BrandService;
 import jakarta.validation.Valid;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,7 +17,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/api/brands")
-public class BrandController {
+public class BrandController implements BrandControllerDocs {
 
     private final BrandService brandService;
 
@@ -23,34 +25,37 @@ public class BrandController {
         this.brandService = brandService;
     }
 
+    @Override
     @PostMapping
     @PreAuthorize("hasAnyRole('ADMIN', 'EMPLOYEE')")
     public ResponseEntity<BrandResponseDto> createBrand(@RequestBody @Valid BrandRequestDto dto) {
        return ResponseEntity.status(HttpStatus.CREATED).body(brandService.createBrand(dto));
     }
 
+    @Override
     @GetMapping
-    public ResponseEntity<PaginationDto<BrandResponseDto>> getAll(Pageable pageable){
+    public ResponseEntity<PaginationDto<BrandResponseDto>> getAll(Pageable pageable) {
         return ResponseEntity.status(HttpStatus.OK).body(brandService.getall(pageable));
     }
 
+    @Override
     @GetMapping("/{id}")
     public ResponseEntity<BrandResponseDto> findBrandById(@PathVariable Long id) {
         return ResponseEntity.status(HttpStatus.OK).body(brandService.findById(id));
     }
 
+    @Override
     @PutMapping("/{id}")
     @PreAuthorize("hasAnyRole('ADMIN', 'EMPLOYEE')")
     public ResponseEntity<BrandResponseDto> updateBrand(@PathVariable Long id, @RequestBody @Valid BrandRequestDto dto) {
         return ResponseEntity.status(HttpStatus.OK).body(brandService.updateBrand(id, dto));
     }
 
+    @Override
     @DeleteMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<Map<String, String>> deleteBrand(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteBrand(@PathVariable Long id) {
         brandService.deleteBrand(id);
-        Map<String, String> response = Map.of("Message", "Brand with ID: " + id + " was successfuly deleted");
-        return ResponseEntity.status(HttpStatus.OK).body(response);
+        return ResponseEntity.noContent().build();
     }
-
 }

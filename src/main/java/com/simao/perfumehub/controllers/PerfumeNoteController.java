@@ -1,5 +1,6 @@
 package com.simao.perfumehub.controllers;
 
+import com.simao.perfumehub.docs.PerfumeNoteControllerDocs;
 import com.simao.perfumehub.dtos.perfumeNote.PerfumeNoteRequestDto;
 import com.simao.perfumehub.dtos.perfumeNote.PerfumeNoteResponseDto;
 import com.simao.perfumehub.services.PerfumeNoteService;
@@ -13,7 +14,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/perfumes/{perfumeId}/notes")
-public class PerfumeNoteController {
+public class PerfumeNoteController implements PerfumeNoteControllerDocs {
 
     private final PerfumeNoteService perfumeNoteService;
 
@@ -21,17 +22,20 @@ public class PerfumeNoteController {
         this.perfumeNoteService = perfumeNoteService;
     }
 
+    @Override
     @PostMapping
     @PreAuthorize("hasAnyRole('ADMIN', 'EMPLOYEE')")
     public ResponseEntity<PerfumeNoteResponseDto> createPerfumeNote(@PathVariable Long perfumeId, @RequestBody @Valid PerfumeNoteRequestDto dto) {
         return ResponseEntity.status(HttpStatus.CREATED).body(perfumeNoteService.createPerfumeNote(perfumeId, dto));
     }
 
+    @Override
     @GetMapping
     public ResponseEntity<List<PerfumeNoteResponseDto>> getAll(@PathVariable Long perfumeId) {
         return ResponseEntity.status(HttpStatus.OK).body(perfumeNoteService.getAll(perfumeId));
     }
 
+    @Override
     @DeleteMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Void> deletePerfumeNote(@PathVariable Long perfumeId, @PathVariable Long id) {

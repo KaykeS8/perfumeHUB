@@ -6,7 +6,6 @@ import com.simao.perfumehub.dtos.brand.BrandResponseDto;
 import com.simao.perfumehub.dtos.PaginationDto;
 import com.simao.perfumehub.services.BrandService;
 import jakarta.validation.Valid;
-import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
